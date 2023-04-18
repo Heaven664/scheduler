@@ -3,6 +3,11 @@ import classNames from "classnames";
 
 import "components/DayListItem.scss";
 
+/**
+ * Generates string based on number of spots
+ * @param {number} spots
+ * @returns string
+ */
 const formatSpots = (spots) => {
   if (spots === 0) {
     return "no spots";
