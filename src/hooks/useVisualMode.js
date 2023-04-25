@@ -9,15 +9,17 @@ export default function useVisualMode(initial) {
     setMode(newMode);
 
     // Make a copy of current history array mutate it
-    const newArr = [...history];
-    if (replace === true) {
-      newArr[newArr.length - 1] = newMode;
-    } else {
-      newArr.push(newMode);
-    }
+    setHistory(prev => {
+      const newArr = [...prev];
+      if (replace) {
+        newArr.pop();
+      }
 
-    // Update history
-    setHistory(newArr);
+      newArr.push(newMode);
+
+      // Update history
+      return newArr;
+    });
   };
 
   const back = () => {
@@ -25,12 +27,13 @@ export default function useVisualMode(initial) {
     if (history.length <= 1) {
       return;
     }
-    // Make a copy of current history array and remove current mode
+
+    // Make a copy of current history array and remove current mode;
     const newArr = [...history];
     newArr.pop();
 
     // Gets previous mode
-    const prevMode = history[history.length - 2];
+    const prevMode = newArr[newArr.length - 1];
 
     // Update mode and history
     setMode(prevMode);
