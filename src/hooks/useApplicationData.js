@@ -28,21 +28,18 @@ export default function useApplicationData() {
     });
   }, []);
 
-  const updateSpots = (state, booking = false) => {
-    const currentDay = state.days.find(day => {
-      return state.day === day.name;
-    });
-
-    const dailyAppointments = getAppointmentsForDay(state, currentDay.name);
-
+  const updateSpots = (state, appointments) => {
+    const dayObj = state.days.find(day => day.name === state.day);
+    const appointmentsArray = dayObj.appointments;
     let spots = 0;
-    for (let day of dailyAppointments) {
-      if (!day.interview) {
+    for (let index of appointmentsArray) {
+      if (!appointments[index].interview) {
         spots++;
       }
     }
-    spots = booking ? spots - 1: spots + 1
-    return spots;
+    const newDay = { ...dayObj, spots };
+    const days = state.days.map(day => state.day === day.name ? newDay : day);
+    return days;
   };
 
   // Update current day
@@ -61,19 +58,8 @@ export default function useApplicationData() {
 
     return axios.put(`/api/appointments/${id}`, { interview })
       .then(() => {
-        setState(prev => ({ ...prev, appointments, }));
-      })
-      .then(() => {
-        const spots = updateSpots(state, true);
-        setState(prev => {
-          const newDays = prev.days.map(day => {
-            if (prev.day === day.name) {
-              return { ...day, spots };
-            }
-            return day;
-          });
-          return { ...prev, days: newDays };
-        });
+        const days = updateSpots(state, appointments);
+        setState(prev => ({ ...prev, appointments, days }));
       });
 
   }
@@ -84,19 +70,8 @@ export default function useApplicationData() {
     const appointments = { ...state.appointments, [id]: appointment };
     return axios.delete(`/api/appointments/${id}`)
       .then(() => {
-        setState({ ...state, appointments });
-      })
-      .then(() => {
-        const spots = updateSpots(state);
-        setState(prev => {
-          const days = prev.days.map(day => {
-            if (prev.day === day.name) {
-              return { ...day, spots };
-            }
-            return day;
-          });
-          return { ...prev, days };
-        });
+        const days = updateSpots(state, appointments);
+        setState(prev => ({ ...prev, appointments, days }));
       });
   }
 
