@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { getAppointmentsForDay } from 'helpers/selectors';
 import axios from 'axios';
 
 export default function useApplicationData() {
