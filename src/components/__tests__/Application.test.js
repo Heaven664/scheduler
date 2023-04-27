@@ -11,7 +11,6 @@ describe("Application", () => {
   it("changes the schedule when a new day is selected", () => {
     const { getByText } = render(<Application />);
 
-    // Why return?
     return waitForElement(() => getByText("Monday"))
       .then(() => {
         fireEvent.click(getByText("Tuesday"));

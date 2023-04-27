@@ -1,22 +1,8 @@
 import React from "react";
 import classNames from "classnames";
-
+import { formatSpots } from "helpers/helpers";
 import "components/DayListItem.scss";
 
-/**
- * Generates string based on number of spots
- * @param {number} spots
- * @returns string
- */
-const formatSpots = (spots) => {
-  if (spots === 0) {
-    return "no spots remaining";
-  }
-  if (spots === 1) {
-    return "1 spot remaining";
-  }
-  return `${spots} spots remaining`;
-};
 
 export default function DayListItem(props) {
   const spots = formatSpots(props.spots);

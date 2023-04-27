@@ -8,13 +8,12 @@ export default function useVisualMode(initial) {
     // Update mode
     setMode(newMode);
 
-    // Make a copy of current history array mutate it
+    // Make a copy of current history array and mutate it
     setHistory(prev => {
       const newArr = [...prev];
       if (replace) {
         newArr.pop();
       }
-
       newArr.push(newMode);
 
       // Update history
