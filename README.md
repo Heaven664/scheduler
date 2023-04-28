@@ -6,27 +6,9 @@ The ***Interview Scheduler*** is a powerful and intuitive React-based applicatio
 ## Demo
 ![ezgif com-video-to-gif (1)](https://user-images.githubusercontent.com/105215745/235016123-a33a1db4-3cec-4dea-a458-fa5c9670c363.gif)
 
-## Setup
-
-Install dependencies with `npm install`.
-
-## Running Webpack Development Server
-
-```sh
-npm start
-```
-
-## Running Jest Test Framework
-
-```sh
-npm test
-```
-
-## Running Storybook Visual Testbed
-
-```sh
-npm run storybook
-```
+## Getting Started
+1. Install all dependencies (using the `npm install` command)
+2. Run Webpack Development Server using `npm start`
 
 ## Dependencies
 -  **axios**
